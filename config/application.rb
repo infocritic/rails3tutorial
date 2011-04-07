@@ -38,5 +38,13 @@ module Rails3tutorial
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+    
+    config.generators do |g|
+      g.template_engine :haml
+      
+      # you can also specify a different test framework or ORM here
+      g.test_framework  :rspec
+      # g.org             :mongoid
+    end
   end
 end

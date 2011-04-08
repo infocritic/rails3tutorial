@@ -113,7 +113,6 @@ DEPENDENCIES
   autotest-fsevent (= 0.2.4)
   autotest-growl (= 0.2.9)
   autotest-rails-pure (= 4.1.2)
-  haml
   haml-rails
   rails (= 3.0.5)
   rspec-rails (= 2.0.0.beta.18)

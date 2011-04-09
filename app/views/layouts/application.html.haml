@@ -12,11 +12,11 @@
 	%body
 		.container
 			%header
-			= image_tag("logo.png", :alt => "Sample App", :class => "round" )
-			%nav.round
-			%ul
-				%il= link_to "Home", "#"
-				%il= link_to "Help", "#"
-				%il= link_to "Sign in", "#"
+				= image_tag("logo.png", :alt => "Sample App", :class => "round" )
+				%nav.round
+					%ul
+						%li= link_to "Home", "#"
+						%li= link_to "Help", "#"
+						%li= link_to "Sign in", "#"
 			%section.round
 				= yield

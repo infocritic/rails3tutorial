@@ -14,6 +14,7 @@ group :development do
   gem 'autotest-fsevent', '0.2.4'
   gem 'autotest-growl', '0.2.9'
   gem 'spork', '0.9.0.rc4'
+  gem 'annotate-models', '1.0.4'
 end
 
 group :test do

@@ -9,4 +9,11 @@ class UsersController < ApplicationController
     @user = User.new
     @title = "Sign up"
   end
+  
+  def create
+    @user = User.new(params[:user])
+    @user.save
+    @title = "Sign up"
+    render 'new'
+  end
 end

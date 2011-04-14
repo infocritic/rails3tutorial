@@ -26,6 +26,13 @@ module SessionsHelper
     !current_user.nil?
   end
   
+  def deny_notice
+    # flash[:notice] = "Please sign in to access this page."
+    # redirect_to signin_path
+    # ------- OR -------
+    redirect_to signin_path, :notice => "Please sign in to access this page."
+  end
+  
   private
   
     def user_from_remember_token

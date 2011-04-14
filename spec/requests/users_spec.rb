@@ -35,5 +35,15 @@ describe "Users" do
         end.should change(User, :count).by(1)
       end
     end
+    
+    describe "sign in/out" do
+      
+      describe "failure" do
+        
+        it "should not sign a user in" do
+          visit signin_path
+        end
+      end
+    end
   end
 end

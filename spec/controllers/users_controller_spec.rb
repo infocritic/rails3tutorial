@@ -91,7 +91,12 @@ describe UsersController do
         end.should change(User, :count).by(1)
       end
       
-      it "should redirect to the suer show paga" do
+      it "should sign the user in" do
+        post :create, :user => @attr
+        controller.should be_signed_in
+      end
+      
+      it "should redirect to the user show paga" do
         post :create, :user => @attr
         response.should redirect_to(user_path(assigns(:user)))
       end

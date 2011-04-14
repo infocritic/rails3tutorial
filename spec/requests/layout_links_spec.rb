@@ -22,12 +22,12 @@ describe "Layout links" do
     response.should have_selector('title', :content => "Help" )
   end  
   
-  it "should hve a Sign Up page at '/signup'" do
+  it "should have a Sign Up page at '/signup'" do
     get '/signup'
     response.should have_selector('title', :content => "Sign up" )
   end
   
-  it "should hve a Sign Up page at '/signin'" do
+  it "should have a Sign Up page at '/signin'" do
     get '/signin'
     response.should have_selector('title', :content => "Sign in" )
   end
@@ -75,6 +75,12 @@ describe "Layout links" do
       visit root_path
       response.should have_selector("a", :href => user_path(@user),
                                          :content => "Profile" )
+    end
+    
+    it "should have a settings link" do
+      visit root_path
+      response.should have_selector("a", :href => edit_user_path(@user),
+                                         :content => "Settings" )
     end
     
   end

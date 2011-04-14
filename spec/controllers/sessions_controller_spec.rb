@@ -62,7 +62,7 @@ describe SessionsController do
     end
   end
   
-  describe "DELTE 'destroy'" do
+  describe "DELETE 'destroy'" do
     
     it "should sign a user out" do
       test_sign_in(Factory(:user))

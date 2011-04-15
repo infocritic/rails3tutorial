@@ -1,3 +1,4 @@
+# Chapt 3.1.2
 class PagesController < ApplicationController
 
   def home

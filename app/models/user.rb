@@ -13,9 +13,11 @@
 #
 
 class User < ActiveRecord::Base
+  # Chapt 6.1.2
   attr_accessor   :password
   attr_accessible :name, :email, :password, :password_confirmation
   
+  # Chapt 6.2.3
   email_regex = /\A[\w+.\-]+@[a-z.\-\d]+\.[a-z]{2,}\z/i
   
   validates :name,     :presence => true,
@@ -29,12 +31,20 @@ class User < ActiveRecord::Base
                        
   before_save :encrypt_password
   
+  # Chapt 7.2.1
   def has_password?(submitted_password)
     encrypted_password == encrypt(submitted_password)
   end
   
+  # Everything within this block becomes a Class Method as 
+  # opposed to and instance method. See the following link
+  # for details: 
+  # http://railstips.org/blog/archives/2009/05/11/class-and-instance-methods-in-ruby/
   class << self
   
+    # If not created within 'class << self' block, declare as
+    # def self.authenticate...
+    # Chapt 7.1.1
     def authenticate(email, submitted_password)
       user = find_by_email(email)
       # return nil if user.nil?
@@ -43,6 +53,7 @@ class User < ActiveRecord::Base
       (user && user.has_password?(submitted_password)) ? user : nil
     end
     
+    # Chapt 9.3.3
     def authenticate_with_salt(id, cookie_salt)
       user = User.find_by_id(id)
       (user && user.salt == cookie_salt) ? user : nil
@@ -51,6 +62,7 @@ class User < ActiveRecord::Base
   
   private 
   
+    # Chapt 7.1.3
     def encrypt_password
       self.salt = make_salt if new_record?
       self.encrypted_password = encrypt(password)      
@@ -64,6 +76,7 @@ class User < ActiveRecord::Base
       secure_hash("#{Time.now.utc}--#{password}")
     end
     
+    # Chapt 7.2.2
     def secure_hash(string)
       Digest::SHA2.hexdigest(string)
     end

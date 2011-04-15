@@ -9,6 +9,10 @@ module SessionsHelper
     current_user = user
   end
   
+  def signed_in?
+    !current_user.nil?
+  end
+  
   def sign_out
     cookies.delete(:remember_token)
     current_user = nil
@@ -22,19 +26,39 @@ module SessionsHelper
     @current_user ||= user_from_remember_token
   end
   
-  def signed_in?
-    !current_user.nil?
+  def current_user?(user)
+    user == current_user
   end
-  
-  def deny_notice
+
+  def deny_access
+    store_location
     # flash[:notice] = "Please sign in to access this page."
     # redirect_to signin_path
     # ------- OR -------
     redirect_to signin_path, :notice => "Please sign in to access this page."
   end
   
+  #Chapt 10.2.3
+  def store_location
+    session[:return_to] = request.fullpath
+  end
+  
+  def redirect_back_or(default)
+    redirect_to(session[:return_to] || default)
+    clear_return_to
+  end
+  
+  # We have to clear the stored :return_to 'value' in the session cookie
+  # or the next time redirect_back_or is hit, it will continue to route
+  # to the same page originally stored in :return_to, which we do not want.
+  # Chapt 10.2.3
+  def clear_return_to
+    session[:return_to] = nil    
+  end
+  
   private
   
+    # Chapt 9.3.3
     def user_from_remember_token
       # * - flattens an array into the individual items
       User.authenticate_with_salt(*remember_token)   

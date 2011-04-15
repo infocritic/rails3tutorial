@@ -1,6 +1,11 @@
 %h1 All users
+= will_paginate
 %ul.users
-  - @users.each do |user|
-    %li
-      = gravatar_for user, :size => 30
-      = link_to user.name, user
+	-# Chapt 10.3.4
+	-# Refactored the following 2 lines with the new line
+	-# Remember that @user in this context is now a 
+	-# WillPaginate::Collection and is now innumerable
+		- @users.each do |user|
+			= render user
+	= render @users
+= will_paginate

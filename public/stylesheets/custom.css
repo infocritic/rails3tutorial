@@ -29,7 +29,6 @@ section h1 {
 
 /* Links */
 /*-------*/
-
 a {
   color: #09c;
   text-decoration: none;
@@ -47,13 +46,9 @@ a:visited {
 
 /* Navigation */
 /*------------*/
-
 nav {
   float: right;
-}
-
-nav {
-  background-color: white;
+  background: white;
   padding: 0 0.7em;
   white-space: nowrap;
 }
@@ -85,7 +80,6 @@ nav ul li a:hover {
 
 /* Sign up button */
 /*----------------*/
-
 a.signup_button {
   margin-left: auto;
   margin-right: auto;
@@ -102,24 +96,16 @@ a.signup_button {
 
 /* Round corners */
 /*---------------*/
-
 .round {
-  -moz-border-radius:    10px;
+  -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
-  border-radius:         10px;
+  border-radius: 10px;
 }
 
-/* Footer*/
 
+/* Footer */
+/*--------*/
 footer {
-  text-align: center;
-  margin-top: 10px;
-  width: 710px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.below_footer {
   text-align: center;
   margin-top: 10px;
   width: 710px;
@@ -131,8 +117,17 @@ footer nav {
   float: none;
 }
 
-/* User show page */
+.below_footer {
+  text-align: center;
+  margin-top: 10px;
+  width: 710px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+
+/* User show page */
+/*----------------*/
 table.profile {
   width: 100%;
   margin-bottom: 0;
@@ -147,10 +142,10 @@ td.sidebar {
   width: 30%;
   padding: 1em;
   vertical-align: top;
-  background: #81BEF7;
+  background: #79A4CE;
 }
 
-img.gravatar {
+.profile img.gravatar {
   border: 1px solid #999;
   margin-bottom: -15px;
 }
@@ -159,25 +154,12 @@ div.field, div.actions {
   margin-bottom: 10px;
 }
 
-/* User index page */
-/* Chapt 10.3.1 */
 
-ul.users {
-  margin-top: 10px;
-}
-
-ul.users li {
-margin-top: 1em;
-  list-style: none;
-}
-
-
-/* Error notifications */
-/*---------------------*/
-
+/* Error messages */
+/*----------------*/
 .field_with_errors {
   margin-top: 10px;
-  padding: 1px;
+  padding: 2px;
   background-color: red;
   display: table;
 }
@@ -216,10 +198,17 @@ margin-top: 1em;
   list-style: square;
 }
 
+ul.users {
+  margin-top: 1em;
+}
 
-/*  Micropost Styles  */
-/*--------------------*/
+ul.users li {
+  list-style: none;
+}
 
+
+/* Micropost styling */
+/*-------------------*/
 h1.micropost {
   margin-bottom: 0.3em;
 }

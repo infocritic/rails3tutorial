@@ -2,6 +2,16 @@
 -# here. Make sure when using = render 'shared/error_messages', that 
 -# the parameter is -- :object => f.object  -- so the entire call is
 -# -- = render 'shared/error_messages', :object => f.object
+-# The reason for this, is that if we use 'if @user.errors.any?' this
+-# method only supports errors for the User object.  While we could
+-# write separate error message partials for each type of object, it
+-# makes more sense to convert this to an 'object' error partial
+=# which makes the partial generic and much more useful.
+-# Also, pay attention to the really cool embedded ruby to humanize
+-# the object.class name to a string. Remember that .underscore
+-# converts to lowercase but with an underscore instead of spaces
+-# then .humanize replaces underscore chars with a space and .downcase
+-# removes any CamelCase remains.
 - if object.errors.any?
   #error_explanation
     %h2

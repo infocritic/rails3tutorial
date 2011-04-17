@@ -5,8 +5,11 @@ class MicropostsController < ApplicationController
   def create
     # Chapt 11.3.2
     @micropost = current_user.microposts.build(params[:micropost])
-    @micropost.save
-    render 'pages/home'
+    if @micropost.save
+      redirect_to root_path, :flash => { :success => "Micropost created!" }
+    else
+      render 'pages/home'
+    end
   end
   
   def destroy

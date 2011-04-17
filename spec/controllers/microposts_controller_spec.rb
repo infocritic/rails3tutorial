@@ -42,6 +42,7 @@ describe MicropostsController do
       end
     end
     
+    # Chapt 11.3.2
     describe "success" do
       
       before(:each) do
@@ -52,6 +53,15 @@ describe MicropostsController do
         lambda do
           post :create, :micropost => @attr
         end.should change(Micropost, :count).by(1)
+      end
+      it "should redirect to the root_path" do
+        post :create, :micropost => @attr
+        response.should redirect_to(root_path)
+      end
+      
+      it "should have a flassh success message" do
+        post :create, :micropost => @attr
+        flash[:success].should =~ /micropost created/i
       end
     end
   end

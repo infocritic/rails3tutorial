@@ -96,23 +96,50 @@ describe UsersController do
     
     it "should have the right title" do
       get :show, :id => @user.id
-      response.should have_selector('title', :content => @user.name ) 
+      response.should have_selector('title', :content => @user.name) 
     end
     
     it "should have the user's name" do
       get :show, :id => @user.id
-      response.should have_selector('h1', :content => @user.name )
+      response.should have_selector('h1', :content => @user.name)
     end
     
     it "should have a profile image" do
       get :show, :id => @user.id
-      response.should have_selector('h1>img', :class => "gravatar" ) 
+      response.should have_selector('h1>img', :class => "gravatar") 
     end
     
     it "should have the right URL" do
       get :show, :id => @user.id
       response.should have_selector('td>a', :content => user_path(@user),
                                            :href    => user_path(@user))
+    end
+    
+    # Chapt 11.2.1
+    it "should show the user's microposts" do
+      mp1 = Factory(:micropost, :user => @user, :content => "Lime green rubarb")
+      mp2 = Factory(:micropost, :user => @user, :content => "Magenta is a dog")
+      get :show, :id => @user
+      response.should have_selector('span.content', :content => mp1.content)
+      response.should have_selector('span.content', :content => mp2.content)
+    end
+    
+    # Chapt 11.2.1 (Might not be in book - only on screencast)
+    it "should paginate micropost" do
+      35.times { Factory(:micropost, :user => @user,  :content => "foo") }
+      get :show, :id => @user
+      response.should have_selector('div.pagination')
+    end
+    
+    # Chapt 11.2.1 - Needed to convert the @user.microposts.count to string
+    # as it appears that when the 10.time method is used, have_selector isn't
+    # smart enough to conver the fixnum 'count' to a string by itself.
+    it "should display the micropost count" do
+      10.times { Factory(:micropost, :user => @user,  :content => "foo") }
+      get :show, :id => @user
+      response.should have_selector('td.sidebar', 
+                                    :content => @user.microposts.count.to_s)
+      
     end
   end
 
@@ -124,7 +151,7 @@ describe UsersController do
     
     it "should have the right title" do
       get :new
-      response.should have_selector('title', :content => "Sign up" )
+      response.should have_selector('title', :content => "Sign up")
     end
   end
 

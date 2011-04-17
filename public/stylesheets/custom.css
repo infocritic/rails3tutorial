@@ -26,7 +26,9 @@ section h1 {
   font-size: 200%;
 }
 
+
 /* Links */
+/*-------*/
 
 a {
   color: #09c;
@@ -42,7 +44,9 @@ a:visited {
   color: #069;
 }
 
+
 /* Navigation */
+/*------------*/
 
 nav {
   float: right;
@@ -78,7 +82,9 @@ nav ul li a:hover {
   text-decoration: underline;
 }
 
+
 /* Sign up button */
+/*----------------*/
 
 a.signup_button {
   margin-left: auto;
@@ -93,7 +99,9 @@ a.signup_button {
   padding: 20px;
 }
 
+
 /* Round corners */
+/*---------------*/
 
 .round {
   -moz-border-radius:    10px;
@@ -163,8 +171,9 @@ margin-top: 1em;
   list-style: none;
 }
 
-/* Error notifications */
 
+/* Error notifications */
+/*---------------------*/
 
 .field_with_errors {
   margin-top: 10px;
@@ -205,4 +214,63 @@ margin-top: 1em;
 #error_explanation ul li {
   font-size: 12px;
   list-style: square;
+}
+
+
+/*  Micropost Styles  */
+/*--------------------*/
+
+h1.micropost {
+  margin-bottom: 0.3em;
+}
+
+table.microposts {
+  margin-top: 1em;
+}
+
+table.microposts tr {
+  height: 70px;
+}
+
+table.microposts tr td.gravatar {
+  border-top: 1px solid #ccc;
+  vertical-align: top;
+  width: 50px;
+}
+
+table.microposts tr td.micropost {
+  border-top: 1px solid #ccc;
+  vertical-align: top;
+  padding-top: 10px;
+}
+
+table.microposts tr td.micropost span.timestamp {
+  display: block;
+  font-size: 85%;
+  color: #666;
+}
+
+div.user_info img {
+  padding-right: 0.1em;
+}
+
+div.user_info a {
+  text-decoration: none;
+}
+
+div.user_info span.user_name {
+  position: absolute;
+}
+
+div.user_info span.microposts {
+  font-size: 80%;
+}
+
+form.new_micropost {
+  margin-bottom: 2em;
+}
+
+form.new_micropost textarea {
+  height: 4em;
+  margin-bottom: 0;
 }

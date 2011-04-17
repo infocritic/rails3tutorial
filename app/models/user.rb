@@ -16,16 +16,22 @@
 class User < ActiveRecord::Base
   # Chapt 6.1.2
   attr_accessor   :password
+  
   attr_accessible :name, :email, :password, :password_confirmation
+  
+  # Chapt 11.1.2 & Chapt 11.1.3
+  has_many :microposts, :dependent => :destroy
   
   # Chapt 6.2.3
   email_regex = /\A[\w+.\-]+@[a-z.\-\d]+\.[a-z]{2,}\z/i
   
   validates :name,     :presence => true,
                        :length   => { :maximum => 50 }
+                       
   validates :email,    :presence   => true,
                        :format     => { :with => email_regex},
                        :uniqueness => {:case_sensitive => false}
+                       
   validates :password, :presence     => true,
                        :confirmation => true,
                        :length       => { :within => 6..40 }

@@ -62,7 +62,7 @@ class UsersController < ApplicationController
   
   # Chapt 10.4.2
   def destroy
-    User.find(params[:id]).destroy
+    @user.destroy
     flash[:success] = "User destroyed."
     redirect_to users_path
   end
@@ -86,10 +86,13 @@ class UsersController < ApplicationController
   # is also the 'current_user' (the live person using the app)
   # then also redirect_to root_path.  In other words, a user,
   # even if she is an admin cannot delete themself.
+  # Chapt 11.1.3 REFACTOR -- Changed user to @user to remove the
+  # need to hit the database again in the destroy method of this
+  # controller
   def admin_user
-    user = User.find(params[:id])
+    @user = User.find(params[:id])
     # redirect_to(root_path) unless ( current_user.admin? && !current_user?(user) )
     # ----------- OR ------------
-    redirect_to(root_path) if ( !current_user.admin? || current_user?(user) )
+    redirect_to(root_path) if ( !current_user.admin? || current_user?(@user) )
   end
 end

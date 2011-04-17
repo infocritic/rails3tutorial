@@ -177,4 +177,44 @@ describe User do
       @user.should be_admin
     end
   end
+  
+  # Chapt 11.1.2
+  describe "micropost associations" do
+    
+    before(:each) do
+      @user = User.create(@attr)
+      # Chapt 11.1.3
+      # Since the created_at fields are 'Magic' fields, they are not
+      # normally modifiable, however remember that this is not 'real'
+      # data, but is data provided by Factory_Girl, which does allow
+      # this type of bulk write/ modifiable facility.
+      @mp1 = Factory(:micropost, :user => @user, :created_at => 1.day.ago)
+      @mp2 = Factory(:micropost, :user => @user, :created_at => 1.hour.ago)
+    end
+    
+    it "should have a microposts attribute" do
+      @user.should respond_to(:microposts)
+    end
+    
+    it "should have the right microposts in the right order" do
+      @user.microposts.should == [@mp2, @mp1]
+    end
+    
+    # Chapt 11.1.3
+    it "should destroy associated microposts" do
+      @user.destroy
+      [@mp1, @mp2].each do |micropost|
+        lambda do
+          Micropost.find(micropost)
+        end.should raise_error(ActiveRecord::RecordNotFound)
+        # There are two ways to complete this test. The method
+        # used above includes a Lamba block that tests to see
+        # if an error has been raised. The second way is to 
+        # user find_by_id, which should be nil.  To use the
+        # second method, replace the entire lambda block with
+        # the following single line of code.
+        # -- Micropost.find_by_id(micropost.id).should be_nil
+      end
+    end
+  end
 end

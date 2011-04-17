@@ -29,6 +29,15 @@ module SessionsHelper
   def current_user?(user)
     user == current_user
   end
+  
+  # Chapt 10.2.1
+  # Chapt 11.3.1 REFACTOR  - Moved method from users_controller
+  # to allow use from micoposts_controller as well as the
+  # users_controller
+  def authenticate
+    # deny_access is in sessions_helper.rb
+    deny_access unless signed_in?
+  end
 
   def deny_access
     store_location

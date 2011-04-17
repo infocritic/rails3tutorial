@@ -71,10 +71,13 @@ class UsersController < ApplicationController
   private
   
   # Chapt 10.2.1
-  def authenticate
-    # deny_access is in sessions_helper.rb
-    deny_access unless signed_in?
-  end
+  # Chapt 11.3.1 REFACTOR  - Moved method to sessions_helper
+  # to allow use from micoposts_controller as well as this
+  # users_controller
+  # --def authenticate
+  # --  # deny_access is in sessions_helper.rb
+  # --  deny_access unless signed_in?
+  # --end
   
   def correct_user
     @user = User.find(params[:id])

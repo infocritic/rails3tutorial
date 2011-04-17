@@ -30,6 +30,7 @@ Spork.prefork do
     # instead of true.
     config.use_transactional_fixtures = true
     
+    # Chapt 9.4.1
     def test_sign_in(user)
       controller.sign_in(user)
     end

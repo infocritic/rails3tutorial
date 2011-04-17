@@ -1,7 +1,8 @@
 Rails3tutorial::Application.routes.draw do
 
   resources :users
-  resources :sessions, :only => [:new, :create, :destroy]
+  resources :sessions,   :only => [:new, :create, :destroy]
+  resources :microposts, :only => [:create, :destroy]           # Chapt 11.3 
 
   root              :to => "pages#home"
   

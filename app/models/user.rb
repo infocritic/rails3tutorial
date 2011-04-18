@@ -43,6 +43,13 @@ class User < ActiveRecord::Base
     encrypted_password == encrypt(submitted_password)
   end
   
+  # Chapt 11.3.3
+  def feed
+    # The .where rails methode escapes everything after the '?'
+    # to prevent SQL scripting attacks.
+    Micropost.where("user_id = ?", id)
+  end
+  
   # Everything within this block becomes a Class Method as 
   # opposed to and instance method. See the following link
   # for details: 

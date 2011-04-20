@@ -33,6 +33,16 @@ class User < ActiveRecord::Base
   has_many :following, :through => :relationships,  :source => :followed 
   has_many :followers, :through => :reverse_relationships,
                        :source => :follower
+  # Chapt 12.3.3
+  # The following example scope line is not part of the app, but is
+  # meant to illustrate 'scope'.  The scopy effectively includes
+  # a new sudo-class method that limits the set of Users to those 
+  # who are admins. So User.admin would return an array of admin Users.
+  # While you could create a real class method and find where admin = true,
+  # scope is more powerful as it allows chaining. So 
+  # User.admin.paginate(:page => params[:page]) would work with scope
+  # but not with a class method.
+  # -- scope :admin, where(:admin => true)
   
   # Chapt 6.2.3
   email_regex = /\A[\w+.\-]+@[a-z.\-\d]+\.[a-z]{2,}\z/i
@@ -57,9 +67,11 @@ class User < ActiveRecord::Base
   
   # Chapt 11.3.3
   def feed
-    # The .where rails methode escapes everything after the '?'
+    # The .where rails method escapes everything after the '?'
     # to prevent SQL scripting attacks.
-    Micropost.where("user_id = ?", id)
+    # Chapt 12.3.1 REFACTOR -- Replaced the followig proto-feed
+    # -- Micropost.where("user_id = ?", id)
+    Micropost.from_users_followed_by(self)
   end
   
   # Chapt 12.1.4

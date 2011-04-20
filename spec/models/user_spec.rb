@@ -234,6 +234,14 @@ describe User do
                       :user => Factory(:user, :email => Factory.next(:email)))
         @user.feed.should_not include(mp3)
       end
+      
+      # Chapt 12.3.1
+      it "should include the microposts of followed users" do
+        followed = Factory(:user, :email => Factory.next(:email))
+        mp3 = Factory(:micropost, :user => followed)
+        @user.follow!(followed)
+        @user.feed.should include(mp3)
+      end
     end
   end
   
@@ -274,7 +282,7 @@ describe User do
     end
     
     # Chapt 12.1.4
-    it "should have a reverse relationships method" do
+    it "should have a reverse_relationships method" do
       @user.should respond_to(:reverse_relationships)
     end
     

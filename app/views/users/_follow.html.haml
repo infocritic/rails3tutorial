@@ -1,4 +1,7 @@
 -# Chapt 12.2.2
-= form_for current_user.relationships.build(:followed_id => @user.id) do |f|
+-# Chapt 12.2.5 REFACTOR - Added :remote => true to support 
+-# Ajax support.
+= form_for current_user.relationships.build(:followed_id => @user.id), |
+  :remote => true do |f|                                               |
   %div= f.hidden_field :followed_id
   .actions= f.submit "Follow"

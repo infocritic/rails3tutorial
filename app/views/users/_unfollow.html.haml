@@ -1,0 +1,6 @@
+-# Chapt 12.2.2
+-# Note that the form_for is creating relationships, which means
+-# we need some routes to support this.
+= form_for current_user.relationships.find_by_followed_id(@user), |
+  :html => { :method => :delete } do |f|                          |
+  .actions= f.submit "Unfollow"

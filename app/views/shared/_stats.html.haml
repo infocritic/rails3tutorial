@@ -1,0 +1,18 @@
+-# Chapt 12.2.2
+-# I needed to user '= pluralize(@user.following.count, "following")'
+-# instead of '= @user.following.count following' to get the
+-# pages_controller_spec "should have the right follower/following counts"
+-# test to be successful. No idea why...
+- @user ||= current_user
+.stats
+  %table{:summary => "User stats"}
+    %tr
+      %td
+        %a{:href => following_user_path(@user)}
+          %span#following.stat
+            = @user.following.count
+            following
+      %td
+        %a{:href => followers_user_path(@user)}
+          %span#followers.stat
+            = pluralize(@user.followers.count, "follower")

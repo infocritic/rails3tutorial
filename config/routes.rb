@@ -1,8 +1,16 @@
 Rails3tutorial::Application.routes.draw do
 
-  resources :users
-  resources :sessions,   :only => [:new, :create, :destroy]
-  resources :microposts, :only => [:create, :destroy]           # Chapt 11.3 
+  # Chapt 12.2.2 - Added member routes so relationships will respond to
+  # either /users/#/following or /users/#/followers.
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+  
+  resources :sessions,      :only => [:new, :create, :destroy]
+  resources :microposts,    :only => [:create, :destroy]        # Chapt 11.3 
+  resources :relationships, :only => [:create, :destroy]        # Chapt 12.2.2
 
   root              :to => "pages#home"
   

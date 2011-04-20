@@ -1,7 +1,10 @@
+
+
+
 -# Chapt 11.3.3
 -# We need to use an explicit partial key to render 'shared/feed_item
 -# since we need to include a 'non-obvious' collection of feed_items
 - if @feed_items.any?
-	%table.microposts{ :summary => "User feed microposts"}
-		= render :partial => 'shared/feed_item', :collection => @feed_items
-	= will_paginate @feed_items
+  %table.microposts{ :summary => "User feed microposts"}
+    = render :partial => 'shared/feed_item', :collection => @feed_items
+  = will_paginate @feed_items

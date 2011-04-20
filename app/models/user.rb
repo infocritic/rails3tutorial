@@ -20,7 +20,19 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation
   
   # Chapt 11.1.2 & Chapt 11.1.3
-  has_many :microposts, :dependent => :destroy
+  has_many :microposts,    :dependent => :destroy
+  
+  # Chapt 12.1.2
+  has_many :relationships, :foreign_key => "follower_id",
+                           :dependent => :destroy
+  
+  # Chapt 12.1.4
+  has_many :reverse_relationships, :dependent   => :destroy,
+                                   :foreign_key => "followed_id",
+                                   :class_name  => "Relationship" 
+  has_many :following, :through => :relationships,  :source => :followed 
+  has_many :followers, :through => :reverse_relationships,
+                       :source => :follower
   
   # Chapt 6.2.3
   email_regex = /\A[\w+.\-]+@[a-z.\-\d]+\.[a-z]{2,}\z/i
@@ -48,6 +60,23 @@ class User < ActiveRecord::Base
     # The .where rails methode escapes everything after the '?'
     # to prevent SQL scripting attacks.
     Micropost.where("user_id = ?", id)
+  end
+  
+  # Chapt 12.1.4
+  # If no record is found by find_by_followed_id, it will return nil
+  # which, in the Ruby context, is false. 
+  def following?(followed)
+    self.relationships.find_by_followed_id(followed)
+  end
+  
+  # Chapt 12.1.4
+  def follow!(followed)
+    self.relationships.create!(:followed_id => followed.id)
+  end
+
+  # Chapt 12.1.4
+  def unfollow!(followed)
+    self.relationships.find_by_followed_id(followed).destroy
   end
   
   # Everything within this block becomes a Class Method as 

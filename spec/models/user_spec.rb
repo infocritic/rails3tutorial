@@ -236,4 +236,57 @@ describe User do
       end
     end
   end
+  
+  # Chapt 12.1.4
+  describe "relationships" do
+    before(:each) do
+      @user = User.create!(@attr)
+      @followed = Factory(:user)
+    end
+    
+    it "should have a relationships method" do
+      @user.should respond_to(:relationships)
+    end
+    
+    it "should have a following method" do
+      @user.should respond_to(:following)
+    end
+    
+    it "should follow another user" do
+      @user.follow!(@followed)
+      @user.should be_following(@followed)
+    end
+    
+    it "should include the followed user in the following array" do
+      @user.follow!(@followed)
+      @user.following.should include(@followed)
+    end
+    
+    it "should have an unfollow! method" do
+      @user.should respond_to(:unfollow!)
+    end
+    
+    # Chapt 12.1.4
+    it "should unfollow a user" do
+      @user.follow!(@followed)
+      @user.unfollow!(@followed)
+      @user.should_not be_following(@followed)
+    end
+    
+    # Chapt 12.1.4
+    it "should have a reverse relationships method" do
+      @user.should respond_to(:reverse_relationships)
+    end
+    
+    # Chapt 12.1.4
+    it "should have a followers method" do
+      @user.should respond_to(:followers)
+    end
+    
+    # Chapt 12.1.4
+    it "should include the follower in the followers array" do
+      @user.follow!(@followed)
+      @followed.followers.should include(@user)
+    end
+  end
 end

@@ -1,6 +1,14 @@
 class UsersController < ApplicationController
   # Chapt 10.2.1
-  before_filter :authenticate, :only => [:index, :edit, :update, :destroy] 
+  # Chapt 12.2.3 REFACTOR - Since we now what to have :authenticate
+  # run for :following & :followers, we are changing this to exclude
+  # those methods not needing :authenticate as it is more concise.
+  # before_filter :authenticate, :only => [:index, :edit, :update, :destroy] 
+  # Changed to:
+  before_filter :authenticate, :except => [:show, :new, :create]
+  
+  
+  # Chapt 10.2.1
   before_filter :correct_user, :only => [:edit, :update]
   before_filter :admin_user,   :only => [:destroy]   # Chapt 10.4.2 - Don't really need
                                                      # array brackets since only 1 element
@@ -15,6 +23,22 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @microposts = @user.microposts.paginate(:page => params[:page])        # Chapt 11.2.1
     @title = @user.name 
+  end
+  
+  # Chapt 12.2.3
+  def following
+    @title = 'Following'
+    @user = User.find(params[:id])
+    @users = @user.following.paginate(:page => params[:page])
+    render 'show_follow'
+  end
+  
+  # Chapt 12.2.3
+  def followers
+    @title = 'Followers'
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(:page => params[:page])
+    render 'show_follow'
   end
   
   def new
